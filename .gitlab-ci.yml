@@ -1,9 +1,7 @@
 default:
   image: gitlab.virtualcitysystems.de:5050/vcsuite/devops/gitlabrunner/node:20-bullseye
-
 variables:
   GIT_CLONE_PATH: $CI_BUILDS_DIR/$CI_PROJECT_PATH_SLUG/$CI_COMMIT_REF_SLUG
-
 stages:
   - build
   - test
@@ -12,13 +10,11 @@ stages:
   - version
   - publish
   - deployCluster
-
 .template: &job_definition
   only:
     - /^(feature-.*|hotfix-.*|main|release-.*)$/
   tags:
     - linux-2.0
-
 build:
   <<: *job_definition
   script:
@@ -34,30 +30,25 @@ build:
     - git config user.name "Gitlab Runner"
     - git config user.email "gitlab-runner@vc.systems"
   stage: build
-
 .after_build_template: &after_build_definition
   <<: *job_definition
   variables:
     GIT_STRATEGY: none
-
 .staging_build_template: &staging_build_template
   <<: *after_build_definition
   except:
     variables:
       - $PUBLISH
-
 lint:
   <<: *after_build_definition
   stage: test
   script:
     - npm run lint
-
 type-check:
   <<: *after_build_definition
   stage: test
   script:
     - npm run type-check
-
 test:
   <<: *after_build_definition
   stage: test
@@ -67,19 +58,16 @@ test:
   artifacts:
     reports:
       junit: test-report.xml
-
 audit:
   <<: *after_build_definition
   stage: test
   script:
     - npm audit --production --audit-level=low
-
 buildPreview:
   <<: *staging_build_template
   stage: bundle
   script:
     - npm run buildStagingApp
-
 bundle:
   <<: *after_build_definition
   stage: bundle
@@ -90,7 +78,6 @@ bundle:
       - /^(main|release-v.*)$/
   script:
     - npm run build
-
 deployStaging:
   <<: *staging_build_template
   stage: deploy
@@ -106,7 +93,6 @@ deployStaging:
   before_script:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-
 stopEnvironment:
   stage: deploy
   variables:
@@ -125,7 +111,6 @@ stopEnvironment:
   environment:
     name: staging/$CI_COMMIT_REF_SLUG
     action: stop
-
 deployStagingCluster:
   stage: deployCluster
   except:
@@ -141,7 +126,6 @@ deployStagingCluster:
   trigger:
     project: vcsuite/devops/manifests
     branch: main
-
 version:
   <<: *after_build_definition
   stage: version
@@ -165,7 +149,6 @@ version:
     - chmod 644 ~/.ssh/known_hosts
     - git config user.name "Gitlab Runner"
     - git config user.email "gitlab-runner@vc.systems"
-
 publish:
   <<: *after_build_definition
   stage: publish
@@ -175,5 +158,6 @@ publish:
     variables:
       - $PUBLISH
   script:
-    - npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-    - npm publish --registry https://registry.npmjs.org --access public
+    - VERSION=$(node -pe "require('./package.json').version")
+    - npm run bundle
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file dist/@vcmap-knowUrHeat.tar.gz "${CI_API_V4_URL}/projects/317/packages/generic/vcmap-knowUrHeat/${VERSION}/vcmap-knowUrHeat-${VERSION}.tar.gz"'

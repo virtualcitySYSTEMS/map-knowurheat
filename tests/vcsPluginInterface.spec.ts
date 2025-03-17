@@ -57,9 +57,7 @@ describe('VcsPlugin Interface test', () => {
   describe('internationalization', () => {
     it('may provide an i18n object and should provide at least en as fallback language', () => {
       if (pluginInstance?.i18n) {
-        expect(pluginInstance?.i18n)
-          .to.be.a('object')
-          .with.property('en');
+        expect(pluginInstance?.i18n).to.be.a('object').with.property('en');
       }
     });
     it('should use unscoped, camel-case plugin name as namespace for plugin specific i18n entries', () => {
