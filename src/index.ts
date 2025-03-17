@@ -199,6 +199,14 @@ export default function plugin(
               best: 'Bester Fall',
               worst: 'Schlechtester Fall',
             },
+            graphTitle: 'Kosten über die Zeit',
+            graphTitleGas: 'Kosten über die Zeit für die Gasheizung',
+            graphTitleAirAir:
+              'Kosten über die Zeit für die Luft-Luft-Wärmepumpe',
+            graphTitleAirWater:
+              'Kosten über die Zeit für die Luft-Wasser-Wärmepumpe',
+            graphTitleGround:
+              'Kosten über die Zeit für die Grundwasser-Wärmepumpe',
           },
           results: {
             table: 'Tabelle',
@@ -225,7 +233,7 @@ export default function plugin(
             basic: 'Basis',
             income: 'Einkommensabhängig',
             capex: 'Gesamtkapex',
-            capexPerKwh: 'Gerätekosten für Kapazität',
+            capexPerKwh: 'Gerätekosten entspr. Kapazität',
             equipment: 'Kosten für Zusatzgeräte',
             age: 'Klimageschwindigkeitsbonus',
             subsidiesTotal: 'Voraussichtliche Förderung',
@@ -340,9 +348,9 @@ export default function plugin(
             },
             general: {
               subTitle: 'Rentability for Heat Pumps',
-              titleAverage: 'Average time over money',
-              titleBest: 'Best time over money',
-              titleWorst: 'Worst time over money',
+              titleAverage: 'Average time value for money',
+              titleBest: 'Best time value for money',
+              titleWorst: 'Worst time value for money',
               titleInvest: 'Economic calculator heat planning',
               titleOperational: 'Operating expenses',
             },
@@ -365,6 +373,10 @@ export default function plugin(
               best: 'Best case',
               worst: 'Worst case',
             },
+            graphTitleGas: 'Time cost value for the gas heater',
+            graphTitleAirAir: 'Time cost value for the air-air heat pump',
+            graphTitleAirWater: 'Time cost value for the air-water heat pump',
+            graphTitleGround: 'Time cost value for the ground-water heat pump',
           },
           results: {
             table: 'Table',

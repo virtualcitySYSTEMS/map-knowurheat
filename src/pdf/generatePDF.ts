@@ -1406,7 +1406,6 @@ export async function generatePDF(
       },
     ];
   });
-
   const localMoneyOverTimeOptions = getGraphOptions(data, app);
   localMoneyOverTimeOptions.series = seriesStandard.value;
   const imgRevenue = await createApexChartImageString(
@@ -1422,6 +1421,7 @@ export async function generatePDF(
   const imgRevenueWorst = await createApexChartImageString(
     localMoneyOverTimeOptionsWorst,
   );
+
   doc.setDrawColor(yellow);
   doc.setLineWidth(1);
   doc.line(20, 25, 50, 25);
@@ -1432,7 +1432,43 @@ export async function generatePDF(
     20,
     40,
   );
-  doc.addImage(imgRevenue, 'png', 20, 70, 170, 170, undefined, 'SLOW');
+  doc.setTextColor(black);
+  doc.setFont('Titillium Web', 'normal');
+  doc.setFontSize(12);
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleGas',
+    )}: ${newResultValue.gasHeater.totalCost!.toFixed(2)} €`,
+    20,
+    55,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleAirAir',
+    )}: ${newResultValue.airAirHP.totalCost!.toFixed(2)} €`,
+    20,
+    60,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleAirWater',
+    )}: ${newResultValue.airWaterHP.totalCost!.toFixed(2)} €`,
+    20,
+    65,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleGround',
+    )}: ${newResultValue.groundWaterHP.totalCost!.toFixed(2)} €`,
+    20,
+    70,
+  );
+  doc.addImage(imgRevenue, 'png', 20, 75, 170, 170, undefined, 'SLOW');
+
   doc.addPage();
   doc.setDrawColor(yellow);
   doc.setLineWidth(1);
@@ -1444,7 +1480,45 @@ export async function generatePDF(
     20,
     40,
   );
-  doc.addImage(imgRevenueBest, 'png', 20, 70, 170, 170, undefined, 'SLOW');
+  doc.setTextColor(black);
+  doc.setFont('Titillium Web', 'normal');
+  doc.setFontSize(12);
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleGas',
+    )}: ${newResultValue.gasHeater.totalCostBest!.toFixed(2)} €`,
+    20,
+    55,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleAirAir',
+    )}: ${newResultValue.airAirHP.totalCostBest!.toFixed(2)} €`,
+    20,
+    60,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleAirWater',
+    )}: ${newResultValue.airWaterHP.totalCostBest!.toFixed(2)} €`,
+    20,
+    65,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleGround',
+    )}: ${newResultValue.groundWaterHP.totalCostBest!.toFixed(2)} €`,
+    20,
+    70,
+  );
+  doc.setFont('Titillium Web', 'normal');
+  doc.setFontSize(12);
+  doc.addImage(imgRevenueBest, 'png', 20, 75, 170, 170, undefined, 'SLOW');
+
   doc.addPage();
   doc.setDrawColor(yellow);
   doc.setLineWidth(1);
@@ -1456,7 +1530,42 @@ export async function generatePDF(
     20,
     40,
   );
-  doc.addImage(imgRevenueWorst, 'png', 20, 70, 170, 170, undefined, 'SLOW');
+  doc.setTextColor(black);
+  doc.setFont('Titillium Web', 'normal');
+  doc.setFontSize(12);
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleGas',
+    )}: ${newResultValue.gasHeater.totalCostWorst!.toFixed(2)} €`,
+    20,
+    55,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleAirAir',
+    )}: ${newResultValue.airAirHP.totalCostWorst!.toFixed(2)} €`,
+    20,
+    60,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleAirWater',
+    )}: ${newResultValue.airWaterHP.totalCostWorst!.toFixed(2)} €`,
+    20,
+    65,
+  );
+  doc.text(
+    `${transText(
+      vm,
+      'knowurheat.pdf.graphTitleGround',
+    )}: ${newResultValue.groundWaterHP.totalCostWorst!.toFixed(2)} €`,
+    20,
+    70,
+  );
+  doc.addImage(imgRevenueWorst, 'png', 20, 75, 170, 170, undefined, 'SLOW');
 
   // last page
   doc.addPage();
