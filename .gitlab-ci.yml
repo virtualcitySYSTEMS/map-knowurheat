@@ -160,4 +160,4 @@ publish:
   script:
     - VERSION=$(node -pe "require('./package.json').version")
     - npm run bundle
-    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file dist/@vcmap-knowUrHeat.tar.gz "${CI_API_V4_URL}/projects/317/packages/generic/vcmap-knowUrHeat/${VERSION}/vcmap-knowUrHeat-${VERSION}.tar.gz"'
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file dist/@vcmap-knowurheat.tar.gz "${CI_API_V4_URL}/projects/317/packages/generic/vcmap-knowUrHeat/${VERSION}/vcmap-knowurheat-${VERSION}.tar.gz"'
