@@ -1,6 +1,6 @@
 {
   "name": "@vcmap/knowurheat",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Plugin to calculate rentability of Heat Pumps",
   "type": "module",
   "main": "dist/index.js",
