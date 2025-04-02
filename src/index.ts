@@ -200,13 +200,14 @@ export default function plugin(
               worst: 'Schlechtester Fall',
             },
             graphTitle: 'Kosten über die Zeit',
-            graphTitleGas: 'Kosten über die Zeit für die Gasheizung',
+            graphTitleGas:
+              'Zeitkostenwert für die Gasheizung für den Startpunkt',
             graphTitleAirAir:
-              'Kosten über die Zeit für die Luft-Luft-Wärmepumpe',
+              'Zeitkostenwert für die Luft-Luft-Wärmepumpe für den Startpunkt',
             graphTitleAirWater:
-              'Kosten über die Zeit für die Luft-Wasser-Wärmepumpe',
+              'Zeitkostenwert für die Luft-Wasser-Wärmepumpe für den Startpunkt',
             graphTitleGround:
-              'Kosten über die Zeit für die Grundwasser-Wärmepumpe',
+              'Zeitkostenwert für die Grundwasser-Wärmepumpe für den Startpunkt',
           },
           results: {
             table: 'Tabelle',
@@ -373,14 +374,18 @@ export default function plugin(
               best: 'Best case',
               worst: 'Worst case',
             },
-            graphTitleGas: 'Time cost value for the gas heater',
-            graphTitleAirAir: 'Time cost value for the air-air heat pump',
-            graphTitleAirWater: 'Time cost value for the air-water heat pump',
-            graphTitleGround: 'Time cost value for the ground-water heat pump',
+            graphTitleGas:
+              'Time cost value for the gas heater for the starting point',
+            graphTitleAirAir:
+              'Time cost value for the air-air heat pump for the starting point',
+            graphTitleAirWater:
+              'Time cost value for the air-water heat pump for the starting point',
+            graphTitleGround:
+              'Time cost value for the ground-water heat pump for the starting point',
           },
           results: {
             table: 'Table',
-            graph: 'Cost over time',
+            graph: 'Time value of the money',
             capex: 'Capital expenditure',
             opex: 'Operating expenses',
             heading: 'Results',

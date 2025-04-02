@@ -1434,40 +1434,49 @@ export async function generatePDF(
   );
   doc.setTextColor(black);
   doc.setFont('Titillium Web', 'normal');
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.text(
-    `${transText(
-      vm,
-      'knowurheat.pdf.graphTitleGas',
-    )}: ${newResultValue.gasHeater.totalCost!.toFixed(2)} €`,
+    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} :`,
     20,
-    55,
+    51,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.gasHeater.totalCost!.toFixed(2)} €`, 20, 55);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirAir',
-    )}: ${newResultValue.airAirHP.totalCost!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    60,
+    59,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.airAirHP.totalCost!.toFixed(2)} €`, 20, 63);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirWater',
-    )}: ${newResultValue.airWaterHP.totalCost!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    65,
+    67,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.airWaterHP.totalCost!.toFixed(2)} €`, 20, 71);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleGround',
-    )}: ${newResultValue.groundWaterHP.totalCost!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    70,
+    75,
   );
-  doc.addImage(imgRevenue, 'png', 20, 75, 170, 170, undefined, 'SLOW');
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.groundWaterHP.totalCost!.toFixed(2)} €`, 20, 79);
+  doc.setFont('Titillium Web', 'normal');
+  doc.addImage(imgRevenue, 'png', 20, 80, 170, 170, undefined, 'SLOW');
 
   doc.addPage();
   doc.setDrawColor(yellow);
@@ -1482,42 +1491,53 @@ export async function generatePDF(
   );
   doc.setTextColor(black);
   doc.setFont('Titillium Web', 'normal');
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.text(
-    `${transText(
-      vm,
-      'knowurheat.pdf.graphTitleGas',
-    )}: ${newResultValue.gasHeater.totalCostBest!.toFixed(2)} €`,
+    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} :`,
     20,
-    55,
+    51,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.gasHeater.totalCostBest!.toFixed(2)} €`, 20, 55);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirAir',
-    )}: ${newResultValue.airAirHP.totalCostBest!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    60,
+    59,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.airAirHP.totalCostBest!.toFixed(2)} €`, 20, 63);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirWater',
-    )}: ${newResultValue.airWaterHP.totalCostBest!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    65,
+    67,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.airWaterHP.totalCostBest!.toFixed(2)} €`, 20, 71);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleGround',
-    )}: ${newResultValue.groundWaterHP.totalCostBest!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    70,
+    75,
+  );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(
+    `${newResultValue.groundWaterHP.totalCostBest!.toFixed(2)} €`,
+    20,
+    79,
   );
   doc.setFont('Titillium Web', 'normal');
-  doc.setFontSize(12);
-  doc.addImage(imgRevenueBest, 'png', 20, 75, 170, 170, undefined, 'SLOW');
+  doc.addImage(imgRevenueBest, 'png', 20, 80, 170, 170, undefined, 'SLOW');
 
   doc.addPage();
   doc.setDrawColor(yellow);
@@ -1532,40 +1552,53 @@ export async function generatePDF(
   );
   doc.setTextColor(black);
   doc.setFont('Titillium Web', 'normal');
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.text(
-    `${transText(
-      vm,
-      'knowurheat.pdf.graphTitleGas',
-    )}: ${newResultValue.gasHeater.totalCostWorst!.toFixed(2)} €`,
+    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} :`,
     20,
-    55,
+    51,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.gasHeater.totalCostWorst!.toFixed(2)} €`, 20, 55);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirAir',
-    )}: ${newResultValue.airAirHP.totalCostWorst!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    60,
+    59,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.airAirHP.totalCostWorst!.toFixed(2)} €`, 20, 63);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirWater',
-    )}: ${newResultValue.airWaterHP.totalCostWorst!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    65,
+    67,
   );
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(`${newResultValue.airWaterHP.totalCostWorst!.toFixed(2)} €`, 20, 71);
+  doc.setFont('Titillium Web', 'normal');
   doc.text(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleGround',
-    )}: ${newResultValue.groundWaterHP.totalCostWorst!.toFixed(2)} €`,
+    )} 01.01.${data.Year[0]} :`,
     20,
-    70,
+    75,
   );
-  doc.addImage(imgRevenueWorst, 'png', 20, 75, 170, 170, undefined, 'SLOW');
+  doc.setFont('Titillium Web', 'bold');
+  doc.text(
+    `${newResultValue.groundWaterHP.totalCostWorst!.toFixed(2)} €`,
+    20,
+    79,
+  );
+  doc.setFont('Titillium Web', 'normal');
+  doc.addImage(imgRevenueWorst, 'png', 20, 80, 170, 170, undefined, 'SLOW');
 
   // last page
   doc.addPage();
