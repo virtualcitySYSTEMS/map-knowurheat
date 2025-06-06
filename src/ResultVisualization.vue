@@ -265,8 +265,9 @@
     for (let i = 1; i < heatingSystem.costs.removal.year; i++) {
       dataLocal.push({
         year: years[i],
-        mcost: heatingSystem.costs.maintenance[i],
-        ecost: yearlyCostsToUse[i] - heatingSystem.costs.maintenance[i],
+        mcost: heatingSystem.maintananceCostsInterestRate![i],
+        ecost:
+          yearlyCostsToUse[i] - heatingSystem.maintananceCostsInterestRate![i],
         tocost: yearlyCostsToUse[i],
       });
     }
@@ -293,13 +294,14 @@
     return {
       mcost: sumOverYears(
         years,
-        (year) => heatingSystem.costs.maintenance[year],
+        (year) => heatingSystem.maintananceCostsInterestRate![year],
       ),
 
       ecost: sumOverYears(
         years,
         (year) =>
-          yearlyCostsToUse[year] - heatingSystem.costs.maintenance[year],
+          yearlyCostsToUse[year] -
+          heatingSystem.maintananceCostsInterestRate![year],
       ),
 
       tocost: sumOverYears(years, (year) => yearlyCostsToUse[year]),
@@ -633,19 +635,19 @@
                   {{ $t('knowurheat.table.remainingCost') }}
                 </td>
                 <td
-                  v-for="key in {
+                  v-for="[shortKey, fullKey] in Object.entries({
                     gh: 'gasHeater',
                     aahp: 'airAirHP',
                     awhp: 'airWaterHP',
                     gwhp: 'groundWaterHP',
-                  }"
-                  :key="key"
+                  })"
+                  :key="shortKey"
                   style="text-align: right !important; width: 125px"
                 >
                   <VcsFormattedNumber
                     :model-value="
-                      (modelValue as Record<string, any>)[key].capex -
-                      ((totalSubsidies as Record<string, number>)[key] || 0)
+                      (modelValue as Record<string, any>)[fullKey].capex -
+                      (totalSubsidies as Record<string, number>)[shortKey]
                     "
                     unit="€"
                     :fraction-digits="2"

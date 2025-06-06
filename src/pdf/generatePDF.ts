@@ -42,8 +42,10 @@ function operationalCostData(
   for (let i = 1; i < 15; i++) {
     dataLocal.push([
       years[i],
-      heatingSystem.costs.maintenance[i].toFixed(2),
-      (yearlyCostsToUse[i] - heatingSystem.costs.maintenance[i]).toFixed(2),
+      heatingSystem.maintananceCostsInterestRate![i].toFixed(2),
+      (
+        yearlyCostsToUse[i] - heatingSystem.maintananceCostsInterestRate![i]
+      ).toFixed(2),
       yearlyCostsToUse[i].toFixed(2),
     ]);
   }
@@ -70,11 +72,13 @@ function totalOperationalCosts(
     'Total',
     sumOverYears(
       years,
-      (year) => heatingSystem.costs.maintenance[year],
+      (year) => heatingSystem.maintananceCostsInterestRate![year],
     ).toFixed(2),
     sumOverYears(
       years,
-      (year) => yearlyCostsToUse[year] - heatingSystem.costs.maintenance[year],
+      (year) =>
+        yearlyCostsToUse[year] -
+        heatingSystem.maintananceCostsInterestRate![year],
     ).toFixed(2),
     sumOverYears(years, (year) => yearlyCostsToUse[year]).toFixed(2),
   ];

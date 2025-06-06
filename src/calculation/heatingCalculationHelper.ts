@@ -22,6 +22,7 @@ export type Heater = {
   copOrEfficiency: number;
   copOrEfficiencyBest: number;
   copOrEfficiencyWorst: number;
+  maintananceCostsInterestRate?: number[];
   costs: HeaterCosts;
   costsBest: HeaterCosts;
   costsWorst: HeaterCosts;
@@ -85,6 +86,26 @@ function calculateYearlyCosts(
         ((heatDemand[i] * costs.carrier[i]) / copOrEfficiency +
           costs.maintenance[i]) /
         multiply(interestRates.slice(1, i + 1));
+      yearlyCosts.push(Number(cost.toFixed(2)));
+    }
+  }
+  return yearlyCosts;
+}
+
+function calculateYearlyMaintananceCosts(
+  costs: HeaterCosts,
+  interestRates: number[],
+): number[] {
+  const yearlyCosts = [];
+
+  for (let i = 0; i <= costs.removal.year; i++) {
+    if (i === costs.removal.year) {
+      const cost =
+        costs.maintenance[i] / multiply(interestRates.slice(1, i + 1));
+      yearlyCosts.push(Number(cost.toFixed(2)));
+    } else {
+      const cost =
+        costs.maintenance[i] / multiply(interestRates.slice(1, i + 1));
       yearlyCosts.push(Number(cost.toFixed(2)));
     }
   }
@@ -348,6 +369,10 @@ export function main(
     df['Gas price worst'] as number[],
     0,
   );
+  gasHeater.maintananceCostsInterestRate = calculateYearlyMaintananceCosts(
+    gasHeater.costs,
+    interestRates,
+  );
   gasHeater.yearlyCosts = calculateYearlyCosts(
     gasHeater.capex,
     gasHeater.subsidies,
@@ -400,6 +425,10 @@ export function main(
     df['Electricity price best'] as number[],
     df['Electricity price worst'] as number[],
     localSubsidies,
+  );
+  airAirHP.maintananceCostsInterestRate = calculateYearlyMaintananceCosts(
+    airAirHP.costs,
+    interestRates,
   );
   airAirHP.yearlyCosts = calculateYearlyCosts(
     airAirHP.capex,
@@ -455,6 +484,10 @@ export function main(
     df['Electricity price worst'] as number[],
     localSubsidies,
   );
+  airWaterHP.maintananceCostsInterestRate = calculateYearlyMaintananceCosts(
+    airWaterHP.costs,
+    interestRates,
+  );
   airWaterHP.yearlyCosts = calculateYearlyCosts(
     airWaterHP.capex,
     airWaterHP.subsidies,
@@ -507,6 +540,10 @@ export function main(
     df['Electricity price best'] as number[],
     df['Electricity price worst'] as number[],
     localSubsidies,
+  );
+  groundWaterHP.maintananceCostsInterestRate = calculateYearlyMaintananceCosts(
+    groundWaterHP.costs,
+    interestRates,
   );
   groundWaterHP.yearlyCosts = calculateYearlyCosts(
     groundWaterHP.capex,
