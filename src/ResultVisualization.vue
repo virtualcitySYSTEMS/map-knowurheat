@@ -30,6 +30,7 @@
   } from './calculation/heatingCalculationHelper.js';
   import { transText } from './pdf/pdfHelper.js';
   import {
+    roundUpToNiceNumber,
     sumOverYears,
     toPercentage,
   } from './calculation/generalCalculationHelper.js';
@@ -53,6 +54,8 @@
     initialPage: string;
     tableType: string;
   }>();
+
+  const { graphOptions } = props;
 
   const selectedGraphTable = ref(props.initialPage);
 
@@ -368,6 +371,80 @@
       },
     ];
   });
+
+  const maxYAxisValue = computed(() => {
+    // Get cumulative sums for each heating type across all cases
+    const bestGhGraph = cumulativeSum(
+      props.modelValue.gasHeater.yearlyCostsMin!,
+    );
+    const worstGhGraph = cumulativeSum(
+      props.modelValue.gasHeater.yearlyCostsMax!,
+    );
+    const normalGhGraph = cumulativeSum(
+      props.modelValue.gasHeater.yearlyCosts!,
+    );
+
+    const bestAahpGraph = cumulativeSum(
+      props.modelValue.airAirHP.yearlyCostsMin!,
+    );
+    const worstAahpGraph = cumulativeSum(
+      props.modelValue.airAirHP.yearlyCostsMax!,
+    );
+    const normalAahpGraph = cumulativeSum(
+      props.modelValue.airAirHP.yearlyCosts!,
+    );
+
+    const bestAwhpGraph = cumulativeSum(
+      props.modelValue.airWaterHP.yearlyCostsMin!,
+    );
+    const worstAwhpGraph = cumulativeSum(
+      props.modelValue.airWaterHP.yearlyCostsMax!,
+    );
+    const normalAwhpGraph = cumulativeSum(
+      props.modelValue.airWaterHP.yearlyCosts!,
+    );
+
+    const bestGwhpGraph = cumulativeSum(
+      props.modelValue.groundWaterHP.yearlyCostsMin!,
+    );
+    const worstGwhpGraph = cumulativeSum(
+      props.modelValue.groundWaterHP.yearlyCostsMax!,
+    );
+    const normalGwhpGraph = cumulativeSum(
+      props.modelValue.groundWaterHP.yearlyCosts!,
+    );
+
+    // Collect all values from all cases and all heating types
+    const allValues = [
+      ...bestGhGraph,
+      ...worstGhGraph,
+      ...normalGhGraph,
+      ...bestAahpGraph,
+      ...worstAahpGraph,
+      ...normalAahpGraph,
+      ...bestAwhpGraph,
+      ...worstAwhpGraph,
+      ...normalAwhpGraph,
+      ...bestGwhpGraph,
+      ...worstGwhpGraph,
+      ...normalGwhpGraph,
+    ];
+
+    const maxValue = Math.max(...allValues);
+    return roundUpToNiceNumber(maxValue);
+  });
+
+  if (Array.isArray(graphOptions.yaxis)) {
+    graphOptions.yaxis[0] = {
+      ...graphOptions.yaxis[0],
+      max: maxYAxisValue.value,
+    };
+  } else {
+    graphOptions.yaxis = {
+      ...graphOptions.yaxis,
+      max: maxYAxisValue.value,
+    };
+  }
 </script>
 
 <template>

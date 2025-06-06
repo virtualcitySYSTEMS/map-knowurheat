@@ -44,9 +44,9 @@ export default function plugin(
         state: {
           headerIcon: svgFileIcon,
           headerTitle: 'KnowUrHeat',
-          infoUrlCallback: vcsUiApp.getHelpUrlCallback(
-            '/tools/knowUrHeat.html',
-          ),
+          // infoUrlCallback: vcsUiApp.getHelpUrlCallback(
+          //   '/tools/knowUrHeat.html',
+          // ),
         },
         position: { width: '400px' },
       };
@@ -223,9 +223,9 @@ export default function plugin(
             helpTextGraph:
               'Der Graph zeigt die Zeitwert des Geldes. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
             helpTextCapex:
-              'Die Tabelle zeigt die Investitionskosten. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
+              'Die Tabelle zeigt eine wissenschaftliche Abschätzung der Investitionskosten pro Heizsystem, abhängig von der erforderlichen Kapazität des Heizsystems und zusätzlichen Aufwänden wie beispielsweise die Installation der Regeltechnik, Heizflächen oder Speicher. Die Investitionskosten umfassen sowohl den Preis des Gerätes, als auch die Kosten für Montage und Bodenarbeiten bei der Geothermie. Bei der Luft-Luft WP war eine weitere Aufteilung in Zusatzkosten aufgrund der geringen Datenlage nicht möglich, hier sind alle Kosten in den Investitionskosten enthalten.',
             helpTextOpex:
-              'Die Tabelle zeigt die Betriebskosten über die Zeit. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
+              'Die Betriebskosten setzen sich aus jährlich fixen, geschätzten Wartungskosten und den prognostizierten zukünftigen Preisen für Strom oder Gas zusammen. Da die Vorhersage von Energiepreisen mit großer Unsicherheit behaftet ist, diese jedoch einen entscheidenden Einfluss auf die Wirtschaftlichkeit einer Heizungsanlage haben, werden hier drei Szenarien betrachtet. Das Durchschnittsszenario bezieht sich auf die Strom- und Gaspreisprognose des Bundesministeriums für Wirtschaft und Klimaschutz (BMWK). Die Szenarien für den besten- und schlechtesten Fall beziehen sich auf unabhängige Studien und prognostizieren jeweils niedrigere oder höhere künftige Energiekosten.',
           },
           table: {
             SubsidiesHeader: 'Förderungen',
@@ -396,9 +396,9 @@ export default function plugin(
             helpTextGraph:
               'The graph shows the costs over time. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
             helpTextCapex:
-              'The table shows the capital expenditure. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
+              'The table shows a scientific estimate of the investment costs per heating system, depending on the required capacity of the heating system and additional expenses such as the installation of control technology, heating surfaces or storage tanks. The investment costs include both the price of the appliance and the costs for installation and ground work in the case of geothermal energy. In the case of air-to-air heat pumps, a further breakdown into additional costs was not possible due to the limited data available; here, all costs are included in the investment costs.',
             helpTextOpex:
-              'The table shows the operating expenses over time. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
+              'The operating costs are made up of annual fixed, estimated maintenance costs and the forecast future prices for electricity or gas. As the prediction of energy prices is subject to great uncertainty, but these have a decisive influence on the economic efficiency of a heating system, three scenarios are considered here. The average scenario is based on the electricity and gas price forecast of the Federal Ministry of Economics and Climate Protection (BMWK). The best and worst case scenarios are based on independent studies and predict lower or higher future energy costs in each case.',
           },
           table: {
             SubsidiesHeader: 'Subsidies',

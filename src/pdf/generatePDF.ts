@@ -17,7 +17,10 @@ import {
 } from '../calculation/heatingCalculationHelper.js';
 import { getGraphOptions } from '../optionsHelper.js';
 import { MainDataType } from '../knowUrHeatOptions.js';
-import { sumOverYears } from '../calculation/generalCalculationHelper.js';
+import {
+  roundUpToNiceNumber,
+  sumOverYears,
+} from '../calculation/generalCalculationHelper.js';
 
 function operationalCostData(
   years: number[],
@@ -1406,17 +1409,100 @@ export async function generatePDF(
       },
     ];
   });
+
+  const maxYAxisValueForAllSeries = computed(() => {
+    // Get cumulative sums for each series
+    const ghGraph = cumulativeSum(newResultValue.gasHeater.yearlyCosts!);
+    const aahpGraph = cumulativeSum(newResultValue.airAirHP.yearlyCosts!);
+    const awhpGraph = cumulativeSum(newResultValue.airWaterHP.yearlyCosts!);
+    const gwhpGraph = cumulativeSum(newResultValue.groundWaterHP.yearlyCosts!);
+
+    const bestGhGraph = cumulativeSum([
+      ...newResultValue.gasHeater.yearlyCostsMin!,
+    ]);
+    const bestAahpGraph = cumulativeSum([
+      ...newResultValue.airAirHP.yearlyCostsMin!,
+    ]);
+    const bestAwhpGraph = cumulativeSum([
+      ...newResultValue.airWaterHP.yearlyCostsMin!,
+    ]);
+    const bestGwhpGraph = cumulativeSum([
+      ...newResultValue.groundWaterHP.yearlyCostsMin!,
+    ]);
+
+    const worstGhGraph = cumulativeSum([
+      ...newResultValue.gasHeater.yearlyCostsMax!,
+    ]);
+    const worstAahpGraph = cumulativeSum([
+      ...newResultValue.airAirHP.yearlyCostsMax!,
+    ]);
+    const worstAwhpGraph = cumulativeSum([
+      ...newResultValue.airWaterHP.yearlyCostsMax!,
+    ]);
+    const worstGwhpGraph = cumulativeSum([
+      ...newResultValue.groundWaterHP.yearlyCostsMax!,
+    ]);
+
+    // Combine all values from the series
+    const allValues = [
+      ...ghGraph,
+      ...aahpGraph,
+      ...awhpGraph,
+      ...gwhpGraph,
+      ...bestGhGraph,
+      ...bestAahpGraph,
+      ...bestAwhpGraph,
+      ...bestGwhpGraph,
+      ...worstGhGraph,
+      ...worstAahpGraph,
+      ...worstAwhpGraph,
+      ...worstGwhpGraph,
+    ];
+
+    // Find the highest value
+    const maxValue = Math.max(...allValues);
+    // Round the value to a nice number
+    return roundUpToNiceNumber(maxValue);
+  });
+
   const localMoneyOverTimeOptions = getGraphOptions(data, app);
+
+  if (Array.isArray(localMoneyOverTimeOptions.yaxis)) {
+    localMoneyOverTimeOptions.yaxis.forEach((yaxis) => {
+      yaxis.max = maxYAxisValueForAllSeries.value;
+    });
+  } else if (localMoneyOverTimeOptions.yaxis) {
+    localMoneyOverTimeOptions.yaxis.max = maxYAxisValueForAllSeries.value;
+  }
+
   localMoneyOverTimeOptions.series = seriesStandard.value;
   const imgRevenue = await createApexChartImageString(
     localMoneyOverTimeOptions,
   );
   const localMoneyOverTimeOptionsBest = getGraphOptions(data, app);
+
+  if (Array.isArray(localMoneyOverTimeOptionsBest.yaxis)) {
+    localMoneyOverTimeOptionsBest.yaxis.forEach((yaxis) => {
+      yaxis.max = maxYAxisValueForAllSeries.value;
+    });
+  } else if (localMoneyOverTimeOptionsBest.yaxis) {
+    localMoneyOverTimeOptionsBest.yaxis.max = maxYAxisValueForAllSeries.value;
+  }
+
   localMoneyOverTimeOptionsBest.series = seriesBest.value;
   const imgRevenueBest = await createApexChartImageString(
     localMoneyOverTimeOptionsBest,
   );
   const localMoneyOverTimeOptionsWorst = getGraphOptions(data, app);
+
+  if (Array.isArray(localMoneyOverTimeOptionsWorst.yaxis)) {
+    localMoneyOverTimeOptionsWorst.yaxis.forEach((yaxis) => {
+      yaxis.max = maxYAxisValueForAllSeries.value;
+    });
+  } else if (localMoneyOverTimeOptionsWorst.yaxis) {
+    localMoneyOverTimeOptionsWorst.yaxis.max = maxYAxisValueForAllSeries.value;
+  }
+
   localMoneyOverTimeOptionsWorst.series = seriesWorst.value;
   const imgRevenueWorst = await createApexChartImageString(
     localMoneyOverTimeOptionsWorst,

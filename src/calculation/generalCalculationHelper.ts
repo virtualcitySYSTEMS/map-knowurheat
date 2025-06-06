@@ -37,3 +37,21 @@ export function sumOverYears(
   }
   return total;
 }
+
+export function roundUpToNiceNumber(value: number): number {
+  const magnitude = 10 ** Math.floor(Math.log10(value)); // Get magnitude (e.g., 1000 for 14565)
+  const multiple = value / magnitude; // Normalize value to range (e.g., 14.565)
+
+  let roundedMultiple;
+  if (multiple <= 1.5) {
+    roundedMultiple = 1.5;
+  } else if (multiple <= 2) {
+    roundedMultiple = 2;
+  } else if (multiple <= 5) {
+    roundedMultiple = 5;
+  } else {
+    roundedMultiple = 10;
+  }
+
+  return roundedMultiple * magnitude;
+}
