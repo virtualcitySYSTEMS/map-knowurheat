@@ -4,19 +4,21 @@
 
 The KnowUrHeat Plugin provides the user with the possibility to calculate the cost of different heating systems based on the user's heat demand.
 
-## Configuration Overview for `knowUrHeat`
+## Configuration overview for `knowUrHeat`
 
 This configuration file defines all essential data and parameters required by the `knowUrHeat` plugin. It includes project metadata, external references, heating types, subsidy rules, investment cost models (CAPEX), energy prices, and various performance/financial assumptions.
 
-### Project Metadata
+### Project metadata
 
-- **`name`**  
-  Project identifier.  
-  Default: `"knowUrHeat"`
+- **`name`** : Project identifier. Default is `"knowUrHeat"`.
 
 ---
 
-### External Links
+### External links (optional)
+
+Defines related URLs with their display names. In the user interface, these links are listed at the bottom of the wizard as references to external ressources.
+
+_Config example:_
 
 ```json
 "links": [
@@ -28,11 +30,13 @@ This configuration file defines all essential data and parameters required by th
 ]
 ```
 
-Defines related URLs with their display names. These Links are listed at the bottom of the Wizard.
-
 ---
 
-### Initial Heating Systems
+### Initial heating systems
+
+Lists the heating systems to be considered for replacement. Currently supported heating systems include gas and oil.
+
+_Config example:_
 
 ```json
 "initialHeatingDemolition": [
@@ -41,11 +45,13 @@ Defines related URLs with their display names. These Links are listed at the bot
 ]
 ```
 
-Lists the heating systems to be considered for replacement.
-
 ---
 
-### Subsidy Configuration
+### Subsidy configuration
+
+Specification of input parameters for calculation of individual components of the KfW subsidy program.
+
+_Config example:_
 
 ```json
 "subsidies": {
@@ -59,17 +65,23 @@ Lists the heating systems to be considered for replacement.
 }
 ```
 
-- **`baseSubsidyPercentage`**: Standard subsidy percentage applied to all.
+Parameters:
+
+- **`baseSubsidyPercentage`**: Standard subsidy percentage value applicable to all private individuals.
 - **`ageThreshold`**: Age (in years) of the previous heating system to qualify for an additional subsidy.
-- **`ageSubsidyPercentage`**: Additional subsidy that is applied to the new heating system if the `ageThreshold` is met.
-- **`incomeThreshold`**: Maximum income to qualify for an additional income-based subsidy.
-- **`incomeSubsidyPercentage`**: Additional subsidy for low-income households.
-- **`maxSubsidyPercentage`**: Upper cap for total subsidy (as a percentage).
-- **`maxSubsidyValue`**: Maximum Cost that the total subsidy can be applied to.
+- **`ageSubsidyPercentage`**: Percentage value of additional subsidy that is applied if the `ageThreshold` is met by the heating system to be replaced.
+- **`incomeThreshold`**: Maximum household income (in euro) to qualify for an additional income-based subsidy.
+- **`incomeSubsidyPercentage`**: Percentage value of additional subsidy for low-income households.
+- **`maxSubsidyPercentage`**: Upper limit for total subsidy entitlement (as a percentage value).
+- **`maxSubsidyValue`**: Maximum acquisition cost (in euro) that the total subsidy can be applied to.
 
 ---
 
-### CAPEX (Capital Expenditure) Model
+### CAPEX (capital expenditure) model
+
+Defines installation and equipment cost scaling functions per technology as basis for the capital expenditure calculation of the heating systems to be considered for comparison.
+
+_Config example:_
 
 ```json
 "capexData": {
@@ -81,72 +93,67 @@ Lists the heating systems to be considered for replacement.
 }
 ```
 
-Defines installation and equipment cost scaling per technology:
-
 Technologies supported:
 
-- `gas`
-- `awhp` (air-water heat pump)
-- `gwhp` (ground-water heat pump)
-- `aahp` (air-air heat pump)
+- **`gas`**: gas heater
+- **`awhp`**: air-water heat pump
+- **`gwhp`**: ground-water heat pump
+- **`aahp`**: air-air heat pump
 
-Each includes:
+Each includes the following parameters:
 
-- **`capexPerKwh`**: A cost function to estimate investment cost based on kWh
-- **`equipment`**: Equipment cost modeled similarly
+- **`capexPerKwh`**: A cost function to estimate investment cost based on kWh.
+- **`equipment`**: A cost function to estimate equipment cost.
 
 ---
 
-### Main Financial and Technical Data
+### Main financial and technical data
+
+Defines base data per technology for the operational expenditure and time value of money caluclations of the heating systems to be considered for comparison.
+
+_Config example:_
 
 ```json
 "mainData": {
-  "Year": [2024, 2025, ...],
-  "Maintenance costs <type>": [values...],
-  "Deconstruction costs <type>": { "year": 15, "cost": <value> },
+  "Year": [2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042],
+  "Maintenance costs GH": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
   ...
+  "Deconstruction costs GH": { "year": 15, "cost": 1000 },
+  ...
+  "Gas price": [11.87, 12.11, 12.27, 12.34, 12.42, 12.64, 12.86, 13.1, 13.35, 13.73, 14.24, 14.4, 14.81, 15.23, 15.67, 16.11, 16.56, 16.54, 16.53],
+  "Gas price best": [11.87, 7.18, 7.42, 7.65, 7.89, 8.13, 8.37, 8.55, 8.73, 8.91, 9.09, 9.27, 9.46, 9.64, 9.82, 10, 10.18, 10.27, 10.36],
+  "Gas price worst": [11.87, 10.7, 11.02, 11.34, 11.66, 11.98, 12.3, 12.8, 13.3, 13.8, 14.3, 14.8, 15.3, 15.8, 16.3, 16.8, 17.3, 17.62, 17.94],
+  ...
+  "Fuel Oil price": 9.736,
+  "SEER OH": 0.7,
+  "Efficiency GH": 0.8,
+  "COP air-air HP": 4,
+  ...
+  "Rate of interest": [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 }
 ```
 
-Includes:
+General parameters:
 
-#### Maintenance Costs (€/year)
+- **`Year`**: Label for each year of the reference period defined as an array.
 
-- `"Maintenance costs GH"` – Gas heater
-- `"Maintenance costs air-air HP"` – Air-Air Heat Pump
-- `"Maintenance costs air-water HP"` – Air-Water Heat Pump
-- `"Maintenance costs ground-water HP"` – Ground-Water Heat Pump
+Cost parameters:
 
-#### Deconstruction Costs
+- **`Maintenance costs <heater type>`**: Defines maintanance costs (€/year) per technology for each year of the reference period as an array. Heater types supported: GH (gas heater), air-air HP (air-air heat pump), air-water HP (air-water hear pump), ground-water HP (ground-water heat pump).
+- **`Deconstruction costs <heater type>`**: Defines year of deconstruction and deconstruction costs per technology as an object of fixed values. Heater types supported: GH (gas heater), air-air HP (air-air heat pump), air-water HP (air-water hear pump), ground-water HP (ground-water heat pump).
+  - **`year`**: Number of years after which the technology is deconstructed
+  - **`cost`**: Cost of deconstruction (€)
+- **`<Energy type> price`**: Defines energy price projections (€/kWh) per energy type for each year of the reference period as an array for the average case scenario. Energy types supported: Gas, Electricity.
+- **`<Energy type> price best`**: Defines energy price projections (€/kWh) per energy type for each year of the reference period as an array for the best case scenario. Energy types supported: Gas, Electricity.
+- **`<Energy type> price worst`**: Defines energy price projections (€/kWh) per energy type for each year of the reference period as an array for the worst case scenario. Energy types supported: Gas, Electricity.
+- **`Fuel Oil price`**: Defines the assumed oil price used for reverse calculation of the energy demand based on the oil bill.
 
-- Fixed year and cost for dismantling each technology (e.g. `"Deconstruction costs GH"`)
+Technical performance parameters:
 
-#### Energy Prices (€/kWh)
+- **`SEER OH`**: Seasonal Energy Efficiency Ratio, defines the efficiancy value for Oil Heating.
+- **`Efficiency GH`**: Efficiency value of Gas Heating
+- **`COP <heat pump type>`**: Coefficient of Performance, defines the efficiency value for heat pumps. Heat pump types supported: air-air HP (air-air heat pump), air-water HP (air-water hear pump), ground-water HP (ground-water heat pump).
 
-Each with **average**, **best-case**, and **worst-case** projections over time. They are given as arrays for the entire period:
+Financial parameters:
 
-- `"Gas price"`
-- `"Gas price best"`
-- `"Gas price worst"`
-- `"Electricity price"`
-- ...
-- `"Fuel Oil price"` (single value)
-
-#### Technical Performance
-
-These values are used to calculate the efficiency of the heating systems and are given as a single value:
-
-- `"SEER OH"`: Seasonal Energy Efficiency Ratio for Oil Heating
-- `"Efficiency GH"`: Efficiency of Gas Heating
-- `"COP air-air HP"`: Coefficient of Performance
-- `"COP air-water HP"`
-- `"COP ground-water HP"`
-
-#### Rate of Interest
-
-- Fixed interest rate list for all years (e.g., `4%` over the 19-year span)
-- `"Rate of interest": [
-  4, 4, ...
-]` described as an array of values for each year'
-
----
+- **`Rate of interest`**: Defines the projected interest rate (%) for each year of the reference period as an array.
