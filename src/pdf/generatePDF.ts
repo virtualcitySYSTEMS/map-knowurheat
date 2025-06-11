@@ -21,6 +21,8 @@ import {
   roundUpToNiceNumber,
   sumOverYears,
 } from '../calculation/generalCalculationHelper.js';
+import type { KnowUrHeatPlugin } from '../index.js';
+import { name } from '../../package.json';
 
 function operationalCostData(
   years: number[],
@@ -287,9 +289,9 @@ export async function generatePDF(
   doc.setFontSize(12);
   doc.setFont('Titillium Web', 'normal');
   doc.setFillColor(grey);
-  doc.rect(20, 70, 170, 33, 'F');
+  doc.rect(20, 70, 170, 28, 'F');
   doc.text(
-    doc.splitTextToSize(transText(vm, 'knowurheat.pdf.result.revExpText'), 165),
+    doc.splitTextToSize(transText(vm, 'knowurheat.wizard.help.subsidies'), 155),
     22,
     75,
     { lineHeightFactor: 1.5 },
@@ -359,7 +361,7 @@ export async function generatePDF(
   autoTable(doc, {
     head: [
       [
-        `${app.vueI18n.t('knowurheat.table.investment')}`,
+        `${app.vueI18n.t('knowurheat.table.SubsidiesHeader')}`,
         `${app.vueI18n.t('knowurheat.table.gasHeater')}`,
         `${app.vueI18n.t('knowurheat.table.airAir')}`,
         `${app.vueI18n.t('knowurheat.table.airWater')}`,
@@ -517,21 +519,18 @@ export async function generatePDF(
     40,
   );
   doc.setTextColor(black);
-  doc.text(transText(vm, 'knowurheat.pdf.opex.gasTitle'), 20, 90);
+  doc.text(transText(vm, 'knowurheat.pdf.opex.gasTitle'), 20, 130);
   doc.setFont('Titillium Web', 'bold');
   doc.setFontSize(12);
   doc.setTextColor(black);
   doc.setFont('Titillium Web', 'normal');
-  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 97);
+  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 137);
   doc.setFontSize(12);
   doc.setFont('Titillium Web', 'normal');
   doc.setFillColor(grey);
-  doc.rect(20, 50, 170, 33, 'F');
+  doc.rect(20, 50, 170, 71, 'F');
   doc.text(
-    doc.splitTextToSize(
-      transText(vm, 'knowurheat.pdf.result.operationalText'),
-      165,
-    ),
+    doc.splitTextToSize(transText(vm, 'knowurheat.results.helpTextOpex'), 165),
     22,
     55,
     { lineHeightFactor: 1.5 },
@@ -547,7 +546,7 @@ export async function generatePDF(
     ],
     body: operationalCostsGasAverage,
     foot: [operationalCostsGasAverageResult],
-    startY: 105,
+    startY: 145,
     tableWidth: 170,
     headStyles: {
       overflow: 'linebreak',
@@ -726,21 +725,18 @@ export async function generatePDF(
     40,
   );
   doc.setTextColor(black);
-  doc.text(transText(vm, 'knowurheat.table.selectHeating.aahp'), 20, 90);
+  doc.text(transText(vm, 'knowurheat.table.selectHeating.aahp'), 20, 130);
   doc.setFont('Titillium Web', 'bold');
   doc.setFontSize(12);
   doc.setTextColor(black);
   doc.setFont('Titillium Web', 'normal');
-  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 97);
+  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 137);
   doc.setFontSize(12);
   doc.setFont('Titillium Web', 'normal');
   doc.setFillColor(grey);
-  doc.rect(20, 50, 170, 33, 'F');
+  doc.rect(20, 50, 170, 71, 'F');
   doc.text(
-    doc.splitTextToSize(
-      transText(vm, 'knowurheat.pdf.result.operationalText'),
-      165,
-    ),
+    doc.splitTextToSize(transText(vm, 'knowurheat.results.helpTextOpex'), 165),
     22,
     55,
     { lineHeightFactor: 1.5 },
@@ -756,7 +752,7 @@ export async function generatePDF(
     ],
     body: operationalCostsAAHPAverage,
     foot: [operationalCostsAAHPAverageResult],
-    startY: 105,
+    startY: 145,
     tableWidth: 170,
     headStyles: {
       overflow: 'linebreak',
@@ -935,21 +931,18 @@ export async function generatePDF(
     40,
   );
   doc.setTextColor(black);
-  doc.text(transText(vm, 'knowurheat.table.selectHeating.awhp'), 20, 90);
+  doc.text(transText(vm, 'knowurheat.table.selectHeating.awhp'), 20, 130);
   doc.setFont('Titillium Web', 'bold');
   doc.setFontSize(12);
   doc.setTextColor(black);
   doc.setFont('Titillium Web', 'normal');
-  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 97);
+  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 137);
   doc.setFontSize(12);
   doc.setFont('Titillium Web', 'normal');
   doc.setFillColor(grey);
-  doc.rect(20, 50, 170, 33, 'F');
+  doc.rect(20, 50, 170, 71, 'F');
   doc.text(
-    doc.splitTextToSize(
-      transText(vm, 'knowurheat.pdf.result.operationalText'),
-      165,
-    ),
+    doc.splitTextToSize(transText(vm, 'knowurheat.results.helpTextOpex'), 165),
     22,
     55,
     { lineHeightFactor: 1.5 },
@@ -965,7 +958,7 @@ export async function generatePDF(
     ],
     body: operationalCostsAWHPAverage,
     foot: [operationalCostsAWHPAverageResult],
-    startY: 105,
+    startY: 145,
     tableWidth: 170,
     headStyles: {
       overflow: 'linebreak',
@@ -1145,21 +1138,18 @@ export async function generatePDF(
     40,
   );
   doc.setTextColor(black);
-  doc.text(transText(vm, 'knowurheat.table.selectHeating.gwhp'), 20, 90);
+  doc.text(transText(vm, 'knowurheat.table.selectHeating.gwhp'), 20, 130);
   doc.setFont('Titillium Web', 'bold');
   doc.setFontSize(12);
   doc.setTextColor(black);
   doc.setFont('Titillium Web', 'normal');
-  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 97);
+  doc.text(transText(vm, 'knowurheat.pdf.opex.average'), 20, 137);
   doc.setFontSize(12);
   doc.setFont('Titillium Web', 'normal');
   doc.setFillColor(grey);
-  doc.rect(20, 50, 170, 33, 'F');
+  doc.rect(20, 50, 170, 71, 'F');
   doc.text(
-    doc.splitTextToSize(
-      transText(vm, 'knowurheat.pdf.result.operationalText'),
-      165,
-    ),
+    doc.splitTextToSize(transText(vm, 'knowurheat.results.helpTextOpex'), 165),
     22,
     55,
     { lineHeightFactor: 1.5 },
@@ -1175,7 +1165,7 @@ export async function generatePDF(
     ],
     body: operationalCostsGWHPAverage,
     foot: [operationalCostsGWHPAverageResult],
-    startY: 105,
+    startY: 145,
     tableWidth: 170,
     headStyles: {
       overflow: 'linebreak',
@@ -1526,7 +1516,7 @@ export async function generatePDF(
   doc.setFont('Titillium Web', 'normal');
   doc.setFontSize(10);
   doc.text(
-    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} :`,
+    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs GH'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     51,
   );
@@ -1537,7 +1527,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirAir',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs air-air HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     59,
   );
@@ -1548,7 +1538,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirWater',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs air-water HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     67,
   );
@@ -1559,7 +1549,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleGround',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs ground-water HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     75,
   );
@@ -1583,7 +1573,7 @@ export async function generatePDF(
   doc.setFont('Titillium Web', 'normal');
   doc.setFontSize(10);
   doc.text(
-    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} :`,
+    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs GH'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     51,
   );
@@ -1594,7 +1584,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirAir',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs air-air HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     59,
   );
@@ -1605,7 +1595,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirWater',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs air-water HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     67,
   );
@@ -1616,7 +1606,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleGround',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs ground-water HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     75,
   );
@@ -1644,7 +1634,7 @@ export async function generatePDF(
   doc.setFont('Titillium Web', 'normal');
   doc.setFontSize(10);
   doc.text(
-    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} :`,
+    `${transText(vm, 'knowurheat.pdf.graphTitleGas')} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs GH'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     51,
   );
@@ -1655,7 +1645,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirAir',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs air-air HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     59,
   );
@@ -1666,7 +1656,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleAirWater',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs air-water HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     67,
   );
@@ -1677,7 +1667,7 @@ export async function generatePDF(
     `${transText(
       vm,
       'knowurheat.pdf.graphTitleGround',
-    )} 01.01.${data.Year[0]} :`,
+    )} 01.01.${data.Year[0]} ${transText(vm, 'knowurheat.pdf.graphTitle2')} ${data['Deconstruction costs ground-water HP'].year} ${transText(vm, 'knowurheat.pdf.graphTitle3')}:`,
     20,
     75,
   );
@@ -1714,6 +1704,8 @@ export async function generatePDF(
   );
 
   // global
+  const plugin = app.plugins.getByKey(name) as KnowUrHeatPlugin;
+  const { footer } = plugin.config;
   const totalPages = doc.getNumberOfPages();
   doc.setFont('Titillium Web', 'normal');
   doc.setFontSize(12);
@@ -1724,9 +1716,9 @@ export async function generatePDF(
       doc.setFont('Titillium Web', 'normal');
       doc.text(`${i} / ${totalPages}`, 190, 285, { align: 'right' });
       doc.setFont('Titillium Web', 'bold');
-      doc.text(transText(vm, 'knowurheat.pdf.footerLineOne'), 20, 280);
+      doc.text(footer.lineOne, 20, 280);
       doc.setFont('Titillium Web', 'normal');
-      doc.text(transText(vm, 'knowurheat.pdf.footerLineTwo'), 20, 285);
+      doc.text(footer.lineTwo, 20, 285);
     }
   }
 

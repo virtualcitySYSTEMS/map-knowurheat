@@ -142,7 +142,7 @@ export default function plugin(
             },
             help: {
               subsidies:
-                'Das aktuelle KfW-Förderprogramm besteht aus 4 Komponenten: Basisförderung, einkommensabhängige Zusatzförderung, Geschwindigkeitsbonus (bezieht sich auf den Zeitpunkt der Antragstellung) und Effizienzbonus (abhängig von der Heizungsanlage - wird später in der Tabelle der Investitionskosten hinzugefügt)',
+                'Das aktuelle KfW-Förderprogramm besteht aus 4 Komponenten: Basisförderung, einkommensabhängige Zusatzförderung, Geschwindigkeitsbonus (bezieht sich auf den Zeitpunkt der Antragstellung) und Effizienzbonus (abhängig von der Heizungsanlage; hier nicht berücksichtigt).',
               subsidies2:
                 'Weitere Informationen zu möglichen Förderungen sind im Ressourcenbereich unten verlinkt.',
             },
@@ -170,7 +170,7 @@ export default function plugin(
             lastPage: {
               title: 'Informationen',
               infoContent:
-                'Die Ergebnisse basieren auf den eingegebenen Daten und können von den tatsächlichen Ergebnissen abweichen.',
+                'Um unser Ziel klimaneutral zu werden, erreichen zu können, müssen wir auch die Wärmeversorgung klimafreundlicher gestalten. Dazu gehören unter anderen aber vor allem die Erweiterung der Fernwärmenetze, inklusive die Erhöhung der Anschlussleistung, und die Masseninstallation von Wärmepumpen. Allerdings sind die Investitionskosten mit der Installation einer Wärmepumpe hoch im Vergleich zu konventionellen Heizungssystemen, auch wenn die Betriebskosten hingegen deutlich günstiger sind. Deswegen ist eine Analyse der individuellen Umstände der Bürgerinnen und Bürger notwendig, damit jede:r die richtige Entscheidung für sich treffen kann. Zusätzlich wären eventuell in vielen Fällen höhere Förderungsraten nötig, als im Moment vorgesehen. Das Ziel dieses Wirtschaftlichkeitsrechners ist, einen wirtschaftlichen Vergleich unterschiedlicher Heizungsoptionen zu ermöglichen.\nDer Wirtschaftlichkeitsrechner Wärmeplanung wurde in Zusammenarbeit zwischen der Universität Bremen, dem Landesamt GeoInformation Bremen und Virtual City Systems im Rahmen des Forschungsprojekts KnowUrHeat entwickelt. Die Berechnungsmethode basiert auf wissenschaftlichen Ergebnissen der Universität Bremen, die technische Umsetzung als VC Map Plugin wurde von Virtual City Systems realisiert. Die berechneten Ergebnisse dienen ausschließlich der Erstinformation. Sie beruhen auf den getätigten Nutzerangaben und wissenschaftlichen Annahmen und sind nicht rechtsverbindlich.',
             },
             general: {
               subTitle: 'Rentabilität für Wärmepumpen',
@@ -190,8 +190,6 @@ export default function plugin(
               operationalText:
                 'Die Betriebskosten setzen sich aus den Energiekosten und den Wartungskosten zusammen.',
             },
-            footerLineOne: 'Musterstadt',
-            footerLineTwo: 'Musterstraße 1, 00000 Musterstadt',
             opex: {
               gasTitle: 'Gasheizung',
               aahpTitle: 'Luft-Luft Wärmepumpe',
@@ -201,13 +199,15 @@ export default function plugin(
             },
             graphTitle: 'Kosten über die Zeit',
             graphTitleGas:
-              'Zeitkostenwert für die Gasheizung für den Startpunkt',
+              'Gegenwartswert für die Gasheizung mit dem Startpunkt',
+            graphTitle2: 'mit Rückbau nach',
+            graphTitle3: 'Jahren',
             graphTitleAirAir:
-              'Zeitkostenwert für die Luft-Luft-Wärmepumpe für den Startpunkt',
+              'Gegenwartswert für die Luft-Luft-Wärmepumpe für den Startpunkt',
             graphTitleAirWater:
-              'Zeitkostenwert für die Luft-Wasser-Wärmepumpe für den Startpunkt',
+              'Gegenwartswert für die Luft-Wasser-Wärmepumpe für den Startpunkt',
             graphTitleGround:
-              'Zeitkostenwert für die Grundwasser-Wärmepumpe für den Startpunkt',
+              'Gegenwartswert für die Grundwasser-Wärmepumpe für den Startpunkt',
           },
           results: {
             table: 'Tabelle',
@@ -221,11 +221,17 @@ export default function plugin(
             average: 'Durchschnitt',
             select: 'Ergebnis anzeigen',
             helpTextGraph:
-              'Der Graph zeigt die Zeitwert des Geldes. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
+              'Der Zeitwert des Geldes ist ein zentrales Konzept in der Finanzwirtschaft und beruht auf dem Prinzip, dass ein bestimmter Geldbetrag heute mehr wert ist als derselbe Betrag in der Zukunft. Bei Investitionsentscheidungen wird der Zeitwert des Geldes berücksichtigt, um Zahlungsflüsse auf den heutigen Zeitpunkt zu beziehen und damit vergleichbar zu machen. Der sogenannte Barwert (auch: Gegenwartswert) bezeichnet den Wert zukünftiger Zahlungen heute, abgezinst mit einem definierten Zinssatz. Unter der Annahme eines jährlichen Zinssatzes von',
+            helpTextGraph2:
+              '%, bezieht sich somit der Endbetrag auf den Geldbetrag, den Sie zum Anschaffungszeitpunkt zurücklegen müssen, um alle Kosten des gegebenen Heizgeräts über die angenommene Lebensdauer',
+            helpTextGraph3:
+              'zu decken. Die Berechnung schließt den Rückbau im letzten Nutzungsjahr mit ein.',
             helpTextCapex:
-              'Die Tabelle zeigt eine wissenschaftliche Abschätzung der Investitionskosten pro Heizsystem, abhängig von der erforderlichen Kapazität des Heizsystems und zusätzlichen Aufwänden wie beispielsweise die Installation der Regeltechnik, Heizflächen oder Speicher. Die Investitionskosten umfassen sowohl den Preis des Gerätes, als auch die Kosten für Montage und Bodenarbeiten bei der Geothermie. Bei der Luft-Luft WP war eine weitere Aufteilung in Zusatzkosten aufgrund der geringen Datenlage nicht möglich, hier sind alle Kosten in den Investitionskosten enthalten.',
+              'Die Tabelle zeigt eine wissenschaftliche Abschätzung der Investitionskosten pro Heizsystem, abhängig von der erforderlichen Kapazität des Heizsystems und zusätzlichen Aufwänden wie beispielsweise die Installation der Regeltechnik, Heizflächen oder Speicher. Die Anschaffungskosten umfassen sowohl den Preis des Gerätes, als auch die Kosten für Montage und Bodenarbeiten bei der Geothermie. Bei der Luft-Luft WP war eine weitere Aufteilung in Zusatzkosten aufgrund der geringen Datenlage nicht möglich, hier sind alle Kosten in den Investitionskosten enthalten. Unter Förderungen wird eine Ersteinschätzung zur potentiellen Förderung durch das aktuelle KfW-Förderprogramm entsprechend Ihrer Angaben abgebildet. Hier sind die Komponenten Basisförderung, die einkommensabhängige Zusatzförderung und der Klimageschwindigkeitsbonus abgebildet. Der Förderanspruch beträgt maximal 70 % der Investitionskosten bei einer maximal förderfähigen Investitionssumme von 30.000 €. Angaben zu potentiellen Förderungen dienen ausschließlich der Erstinformation und sind nicht rechtsverbindlich.\n' +
+              '\n' +
+              'Die verbleibende Investition ergibt sich aus der Differenz von Anschaffungskosten und Förderbeitrag.',
             helpTextOpex:
-              'Die Betriebskosten setzen sich aus jährlich fixen, geschätzten Wartungskosten und den prognostizierten zukünftigen Preisen für Strom oder Gas zusammen. Da die Vorhersage von Energiepreisen mit großer Unsicherheit behaftet ist, diese jedoch einen entscheidenden Einfluss auf die Wirtschaftlichkeit einer Heizungsanlage haben, werden hier drei Szenarien betrachtet. Das Durchschnittsszenario bezieht sich auf die Strom- und Gaspreisprognose des Bundesministeriums für Wirtschaft und Klimaschutz (BMWK). Die Szenarien für den besten- und schlechtesten Fall beziehen sich auf unabhängige Studien und prognostizieren jeweils niedrigere oder höhere künftige Energiekosten.',
+              'Die Betriebskosten setzen sich aus jährlich fixen, geschätzten Wartungskosten und den prognostizierten zukünftigen Preisen für Strom oder Gas zusammen. Da die Vorhersage von Energiepreisen mit großer Unsicherheit behaftet ist, diese jedoch einen entscheidenden Einfluss auf die Wirtschaftlichkeit einer Heizungsanlage haben, werden hier drei Szenarien betrachtet. Das Durchschnittsszenario bezieht sich auf die Strom- und Gaspreisprognose des Bundesministeriums für Wirtschaft und Klimaschutz (BMWK). Die Szenarien für den besten- und schlechtesten Fall beziehen sich auf unabhängige Studien und prognostizieren jeweils niedrigere oder höhere künftige Energiekosten. Beide Kostenanteile werden als Barwert (auch: Gegenwartswert) der entstehenden Kosten berücksichtigt. Dies bezeichnet den Wert zukünftiger Zahlungen zum heutigen Zeitpunkt, aufgrund der ökonomischen Annahme, dass Geld heute mehr wert ist als derselbe Betrag in der Zukunft.',
           },
           table: {
             SubsidiesHeader: 'Förderungen',
@@ -233,13 +239,13 @@ export default function plugin(
               'Die Förderung setzt sich aus mehreren Komponenten zusammen, beträgt aber maximal 70%. Die maximal förderfähige Investitionssumme beträgt 30.000 €',
             basic: 'Basis',
             income: 'Einkommensabhängig',
-            capex: 'Gesamtkapex',
+            capex: 'Gesamtkosten',
             capexPerKwh: 'Gerätekosten entspr. Kapazität',
             equipment: 'Kosten für Zusatzgeräte',
             age: 'Klimageschwindigkeitsbonus',
             subsidiesTotal: 'Voraussichtliche Förderung',
-            costTotal: 'Gesamtkosten',
-            investment: 'Investition',
+            costTotal: 'Verbleibende Investition',
+            investment: 'Anschaffung',
             gasHeater: 'Gasheizung',
             gasHeaterTooltip: 'Gasheizung',
             airAir: 'Luft-Luft WP',
@@ -256,7 +262,7 @@ export default function plugin(
             maintananceCostTooltip: 'Wartungskosten',
             year: 'Jahr',
             type: 'Typ',
-            remainingCost: 'Verbleibende Kosten',
+            remainingCost: 'Verbleibende Investition',
             selectHeating: {
               gas: 'Gasheizung',
               aahp: 'Luft-Luft-Wärmepumpe',
@@ -317,7 +323,7 @@ export default function plugin(
             },
             help: {
               subsidies:
-                'The current KfW funding programm consists of 4 components: Basic subsidy, income-dependent additional subsidy, speed bonus (relates to the time of application) and efficiency bonus (depending on the heating system - will be added later in the table of capital expenditure)',
+                'The current KfW subsidy programm consists of 4 components: Basic subsidy, income-dependent additional subsidy, speed bonus (relates to the time of application) and efficiency bonus (depending on the heating system; not considered here).',
               subsidies2:
                 'Further information on potential subsidies are linked in the ressources section below.',
             },
@@ -345,7 +351,7 @@ export default function plugin(
             lastPage: {
               title: 'Information',
               infoContent:
-                'The results are based on the entered data and may differ from the actual results.',
+                'In order to achieve our climate target of becoming climate-neutral, we must also make the heat supply more climate-friendly. This includes, but is not limited to, the expansion of district heating networks, including increasing the connected load, and the mass installation of heat pumps. However, the investment costs of installing a heat pump are high compared to conventional heating systems, even if the operating costs are significantly lower. It is therefore necessary to analyse the individual circumstances of citizens so that everyone can make the right decision for themselves. In addition, in many cases higher subsidy rates may be necessary than currently envisaged. The goal of the cost-effectiveness calculator is to show the comparison of different heating options.\nThe economic calculator heat planning has been developed in cooperation between University of Bremen, Land surveying office Bremen and Virtual City Systems as part of the KnowUrHeat research project. The calculation method is based on scientific results of the University of Bremen, the technical implementation as VC Map Plugin was realized by Virtual City Systems. Calculated results are for initial information only. They are based on the defined user inputs and scientific assumptions and are not legally binding.',
             },
             general: {
               subTitle: 'Rentability for Heat Pumps',
@@ -358,15 +364,13 @@ export default function plugin(
             result: {
               revTitle: 'Investment Costs per System',
               revExpText:
-                'The current KfW funding programm consists of 4 components: Basic subsidy, income-dependent additional subsidy, speed bonus (relates to the time of application) and efficiency bonus (depending on the heating system - will be added later in the table of capital expenditure). Further information on potential subsidies are linked in the ressources section below.',
+                'The current KfW subsidy programm consists of 4 components: Basic subsidy, income-dependent additional subsidy, speed bonus (relates to the time of application) and efficiency bonus (depending on the heating system - will be added later in the table of capital expenditure). Further information on potential subsidies are linked in the ressources section below.',
               tableAverage: 'Average Case',
               tableBest: 'Best Case',
               tableWorst: 'Worst Case',
               operationalText:
                 'The operating costs consist of the energy costs and the maintenance costs.',
             },
-            footerLineOne: 'Samplecity',
-            footerLineTwo: 'Samplestreet 1, 00000 Samplecity',
             opex: {
               gasTitle: 'Gas Heater',
               aahpTitle: 'Air-Air Heatpump',
@@ -375,13 +379,15 @@ export default function plugin(
               worst: 'Worst case',
             },
             graphTitleGas:
-              'Time cost value for the gas heater for the starting point',
+              'Present value for the gas heater for the starting point',
+            graphTitle2: 'with deconstruction after',
+            graphTitle3: 'years',
             graphTitleAirAir:
-              'Time cost value for the air-air heat pump for the starting point',
+              'Present value for the air-air heat pump for the starting point',
             graphTitleAirWater:
-              'Time cost value for the air-water heat pump for the starting point',
+              'Present value for the air-water heat pump for the starting point',
             graphTitleGround:
-              'Time cost value for the ground-water heat pump for the starting point',
+              'Present value for the ground-water heat pump for the starting point',
           },
           results: {
             table: 'Table',
@@ -394,15 +400,21 @@ export default function plugin(
             average: 'Average',
             select: 'View result',
             helpTextGraph:
-              'The graph shows the costs over time. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',
+              'The time value of money is a central concept in finance and is based on the principle that a certain amount of money is worth more today than the same amount in the future. When making investment decisions, the time value of money is taken into account in order to relate payment flows to the present and thus make them comparable. The so-called present value describes the value of future payments today, discounted at a defined interest rate. Assuming an annual interest rate of',
+            helpTextGraph2:
+              '%, the final amount therefore refers to the amount of money that you have to set aside at the time of purchase to cover all the costs of the given heater over the assumed service life.',
+            helpTextGraph3:
+              'The calculation includes the deconstruction in the last year of use.',
             helpTextCapex:
-              'The table shows a scientific estimate of the investment costs per heating system, depending on the required capacity of the heating system and additional expenses such as the installation of control technology, heating surfaces or storage tanks. The investment costs include both the price of the appliance and the costs for installation and ground work in the case of geothermal energy. In the case of air-to-air heat pumps, a further breakdown into additional costs was not possible due to the limited data available; here, all costs are included in the investment costs.',
+              'The table shows a scientific estimate of the capital expenditure per heating system, depending on the required capacity of the heating system and additional expenses such as the installation of control technology, heating surfaces or storage tanks. The acquisition costs include both the price of the appliance and the costs for installation and ground work in the case of geothermal energy. In the case of air-to-air heat pumps, a further breakdown into additional costs was not possible due to the limited data available; here, all costs are included in the device costs. An initial assessment of the potential subsidy from the current KfW subsidy program is shown under Subsidies according to your details. The components basic subsidy, the income-dependent additional subsidy and the climate speed bonus are shown here. The maximum subsidy entitlement is 70% of the investment costs with a maximum eligible investment sum of €30,000. Details of potential subsidies are for initial information purposes only and are not legally binding.\n' +
+              '\n' +
+              'The remaining investment is the difference between the acquisition costs and the subsidy.',
             helpTextOpex:
-              'The operating costs are made up of annual fixed, estimated maintenance costs and the forecast future prices for electricity or gas. As the prediction of energy prices is subject to great uncertainty, but these have a decisive influence on the economic efficiency of a heating system, three scenarios are considered here. The average scenario is based on the electricity and gas price forecast of the Federal Ministry of Economics and Climate Protection (BMWK). The best and worst case scenarios are based on independent studies and predict lower or higher future energy costs in each case.',
+              'The operational expenses are made up of annual fixed, estimated maintenance costs and the forecast future prices for electricity or gas. As the prediction of energy prices is subject to great uncertainty, but these have a decisive influence on the economic efficiency of a heating system, three scenarios are considered here. The average scenario is based on the electricity and gas price forecast of the Federal Ministry of Economics and Climate Protection (BMWK). The best and worst case scenarios are based on independent studies and predict lower or higher future energy costs in each case. Both cost shares are taken into account as the present value of the costs incurred. This refers to the value of future payments at the present time, based on the economic assumption that money is worth more today than the same amount in the future.',
           },
           table: {
             SubsidiesHeader: 'Subsidies',
-            capex: 'Total capex',
+            capex: 'Total costs',
             capexPerKwh: 'Device costs for capacity',
             equipment: 'Auxiliary equipment costs',
             SubsidiesHeaderTooltip:
@@ -411,8 +423,8 @@ export default function plugin(
             income: 'Income based',
             age: 'Climate speed bonus',
             subsidiesTotal: 'Estimated subsidies',
-            costTotal: 'Total costs',
-            investment: 'Investment',
+            costTotal: 'Remaining investment',
+            investment: 'Acquisition',
             gasHeater: 'Gas heater',
             gasHeaterTooltip: 'Gas heater',
             airAir: 'Air-to-Air HP',
@@ -429,7 +441,7 @@ export default function plugin(
             maintananceCostTooltip: 'Maintenance costs',
             year: 'Year',
             type: 'Type',
-            remainingCost: 'Remaining expenses',
+            remainingCost: 'Remaining investment',
             selectHeating: {
               gas: 'Gas heater',
               aahp: 'Air-Air Heat Pump',

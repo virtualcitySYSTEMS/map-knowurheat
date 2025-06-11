@@ -47,6 +47,10 @@ export type CapexConfig = {
 
 export type PluginConfig = {
   links?: { name: string; url: string }[];
+  footer: {
+    lineOne: string;
+    lineTwo: string;
+  };
   data: {
     initialHeatingDemolition: { name: string }[];
     subsidies: SubsidiesConfig;
@@ -57,6 +61,10 @@ export type PluginConfig = {
 
 export default (): PluginConfig => ({
   links: [],
+  footer: {
+    lineOne: 'KnowUrHeat',
+    lineTwo: '2024',
+  },
   data: {
     initialHeatingDemolition: [
       {

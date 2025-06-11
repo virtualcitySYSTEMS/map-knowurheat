@@ -61,7 +61,18 @@
 
   const helpText = computed(() => {
     if (selectedGraphTable.value === 'graph') {
-      return 'knowurheat.results.helpTextGraph';
+      if (Array.isArray(props.mainData['Rate of interest'])) {
+        const minRate = Math.min(...props.mainData['Rate of interest']);
+        const maxRate = Math.max(...props.mainData['Rate of interest']);
+        if (minRate !== maxRate) {
+          return `${app.vueI18n.t('knowurheat.results.helpTextGraph')} ${minRate}-${maxRate}${app.vueI18n.t('knowurheat.results.helpTextGraph2')} ${app.vueI18n.t('knowurheat.results.helpTextGraph3')}`;
+        } else {
+          return `${app.vueI18n.t('knowurheat.results.helpTextGraph')} ${minRate}${app.vueI18n.t('knowurheat.results.helpTextGraph2')} ${app.vueI18n.t('knowurheat.results.helpTextGraph3')}`;
+        }
+        // You can use minRate and maxRate as needed here
+      } else {
+        return `${app.vueI18n.t('knowurheat.results.helpTextGraph')} ${props.mainData['Rate of interest']}${app.vueI18n.t('knowurheat.results.helpTextGraph2')} ${app.vueI18n.t('knowurheat.results.helpTextGraph3')}`;
+      }
     } else if (selectedGraphTable.value === 'cexp') {
       return 'knowurheat.results.helpTextCapex';
     } else if (selectedGraphTable.value === 'oexp') {

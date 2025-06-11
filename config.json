@@ -10,6 +10,10 @@
       "url": "https://www.waermepumpe.de/waermepumpe/foerderung/beg-foerderung-waermepumpen/waermepumpen-foerderung-2024-fuer-verbraucher/"
     }
   ],
+  "footer": {
+    "lineOne": "Musterstadt",
+    "lineTwo": "Musterstraße 1, 00000 Musterstadt"
+  },
   "data": {
     "initialHeatingDemolition": [
       {
