@@ -10,11 +10,13 @@ export type DeepPartial<T> = T extends object
 export function getGraphOptions(
   data: MainDataType,
   app: VcsUiApp,
-): ApexOptions {
+): ApexOptions & { chart: { nonce: string | undefined } } {
   return {
     chart: {
       id: 'costChart',
       type: 'line',
+      nonce: (window as Window & { vcs?: { styleNonce?: string } }).vcs
+        ?.styleNonce,
       animations: { enabled: true },
       background: 'rgba(0, 0, 0, 0)', // Transparent background
       toolbar: {
